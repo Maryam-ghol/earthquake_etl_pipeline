@@ -8,8 +8,8 @@ def fetch_earthquake_data():
     url = "https://earthquake.usgs.gov/fdsnws/event/1/query"
     params = {
         'format': 'geojson',
-        'starttime': '2022-01-01',  # Change this to desired start date
-        'endtime': '2022-12-31',  # Change this to desired end date
+        'starttime': '2024-01-01',  # Change this to desired start date
+        'endtime': '2024-12-31',  # Change this to desired end date
         'minmagnitude': 4.0  # Filter earthquakes greater than magnitude 4
     }
     
