@@ -1,9 +1,12 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+import os
+import pandas as pd
 from datetime import datetime
 import src.data.make_dataset as fetch_data
 import src.features.build_features as process_data
 import src.data.load_data as load_data
+from pathlib import Path
 
 def fetch_earthquake_data():
     data = fetch_data.fetch_earthquake_data()
@@ -14,7 +17,9 @@ def process_earthquake_data():
     process_data.save_processed_data(df)
 
 def load_earthquake_data():
-    df = pd.read_csv('processed_earthquake_data.csv')
+    base_path = Path(__file__).resolve().parents[2]
+    processed_path = base_path / "data" / "processed" / "processed_earthquake_data.csv"
+    df = pd.read_csv(processed_path)
     load_data.load_data_to_db(df)
 
 with DAG(
